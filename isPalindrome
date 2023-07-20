@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+/*********************** check a string is palindrom using recursion ******************************/
+bool ispalindrome(string s,int a,int b){
+    //base case
+    if(a>b) return  true;
+    if(s[a]!=s[b]) return false;
+    else return ispalindrome(s,a+1,b-1);
+}
+int main(){
+    string s;
+    cin>>s;
+    bool ans=ispalindrome(s,0,s.size()-1);
+    cout<<ans<<endl;
+    return 0;
+} 
