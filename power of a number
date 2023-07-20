@@ -1,0 +1,14 @@
+#include<iostream>
+using namespace std;
+/*********************** calculating power of number  using recursion *****************************/
+int getsum(int n,int pow){
+    if(pow==0) return 1;
+    return n*getsum(n,pow-1);
+}
+int main(){
+    int n;
+    cin>>n;
+    int pow;
+    cin>>pow;
+    cout<<getsum(n,pow);
+}
