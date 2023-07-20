@@ -1,0 +1,61 @@
+#include<iostream>
+using namespace std;
+/*********************** sort an array   using recursion *****************************/
+void merge(int *arr,int s,int e){
+    int mid=(s+e)/2;
+    int l1=mid-s+1;
+    int l2=e-mid;
+    int *first=new int[l1];
+    int *second=new int[l2];
+
+    int mainarrayindex=s;
+    for(int i=0;i<l1;i++){
+        first[i]=arr[mainarrayindex++];
+    }
+    int k=mid+1; 
+    for(int i=0;i<l1;i++){
+        second[i]=arr[k++];
+    }
+    //merger 2 sorted array
+    int index1=0,index2=0;
+    mainarrayindex=s;
+    while (index1<l1 and index2<l2)
+    {
+        if(first[index1]<second[index2]){
+            arr[mainarrayindex++]=first[index1++];
+        }
+        else 
+            arr[mainarrayindex++]=second[index2++];
+    }
+    while(index1<l1) 
+            arr[mainarrayindex++]=first[index1++];
+            
+    while(index2<l2) 
+            arr[mainarrayindex++]=second[index2++];
+
+
+}
+void mergesortarray(int *arr,int s,int e){
+    //base case
+    if(s>=e) return ;
+    int mid=(s+e)/2;
+    //left part sort
+    mergesortarray(arr,s,mid);
+
+    //right part sort
+    mergesortarray(arr,mid+1,e);
+    merge(arr,s,e);
+
+}
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    mergesortarray(arr,0,n);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+}
