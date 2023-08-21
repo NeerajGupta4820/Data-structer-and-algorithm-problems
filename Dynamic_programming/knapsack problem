@@ -1,0 +1,28 @@
+//link of the problem : https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+class Solution
+{
+    public:
+    //Function to return max value that can be put in knapsack of capacity W.
+   int maxim(int idx,int W,int wt[],int val[],vector<vector<int>> &dp){
+        if(idx==0){
+            if(wt[0]<=W){
+                return val[0];
+            }
+            return 0;
+        }
+        if(dp[idx][W]!=-1) return dp[idx][W]; 
+        int notPick = 0 + maxim(idx-1,W,wt,val,dp);
+        int pick = INT_MIN;
+        if(wt[idx]<=W){
+            pick = val[idx] + maxim(idx-1,W-wt[idx],wt,val,dp);
+        }
+        return dp[idx][W] = max(pick,notPick);
+    }
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+       // Your code here
+       vector<vector<int>> dp(n,vector<int>(W+1,-1));
+       return maxim(n-1,W,wt,val,dp);
+    }
+};
