@@ -1,0 +1,22 @@
+// link of the problem : https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
+
+class Solution
+{
+public:
+    int MOD=1000000007;
+    long long int func(int n,long long int dp[]){
+        if(n<=2) return n;
+        if(dp[n]!=-1) return dp[n];
+        
+        long long int single=func(n-1,dp)%MOD;
+        long long int paired=(((n-1)%MOD)*func(n-2,dp)%MOD)%MOD;
+        return dp[n]=single+paired;
+    }
+    int countFriendsPairings(int n) 
+    { 
+        // code here
+        long long int dp[n+1];
+        memset(dp,-1,sizeof(dp));
+        return func(n,dp)%MOD;
+    }
+};
