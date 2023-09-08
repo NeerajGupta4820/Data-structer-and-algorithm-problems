@@ -1,0 +1,29 @@
+//link of the problem :https://practice.geeksforgeeks.org/problems/subset-sum-problem2014/1
+
+class Solution{
+public:
+    bool solvemem(int index,int arr[],int n,int target,vector<vector<int>>&dp){
+        if(index>=n) return 0;
+        if(target<0)  return 0;
+        if(target==0) return 1;
+        
+        if(dp[index][target]!=-1) return dp[index][target];
+        
+        bool incl=solvemem(index+1,arr,n,target-arr[index],dp);
+        bool excl=solvemem(index+1,arr,n,target,dp);
+        return dp[index][target]=incl or excl;
+    }
+    int equalPartition(int N, int arr[])
+    {
+        // code here
+        int total=0;
+        for(int i=0;i<N;i++){
+            total+=arr[i];
+        }
+        if(total & 1) return 0;
+        int target=total/2;
+        vector<vector<int>>dp(N,vector<int>(target+1,-1));
+        return solvemem(0,arr,N,target,dp);
+        
+    }
+};
