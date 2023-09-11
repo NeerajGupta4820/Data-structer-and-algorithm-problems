@@ -1,0 +1,55 @@
+//link of the problem :
+
+
+/*****************************memoization*******************************/
+class Solution
+{
+    public:
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    
+    int dropegg(int n,int k,vector<vector<int>>& dp){
+        if(k==1 || k==0) return k;
+        if(n==1) return k;
+        if(dp[n][k]!=-1) return dp[n][k];
+        int ans=1e9,attempts;
+        for(int flr=1;flr<=k;flr++){
+            attempts=1+max(dropegg(n-1,flr-1,dp),dropegg(n,k-flr,dp));
+            ans=min(ans,attempts);
+        }
+        return dp[n][k]=ans;
+    }
+    int eggDrop(int n, int k) 
+    {
+        // your code here
+        vector<vector<int>>dp(n+1,vector<int>(k+1,-1));
+        
+        return dropegg(n,k,dp);
+    }
+
+/*****************************tabulation***************************************
+class Solution
+{
+    public:
+    int eggDrop(int n, int k) 
+    {
+        vector<vector<int>>dp(n+1,vector<int>(k+1,0));
+        for(int i=0;i<=n;i++){
+            dp[n][1]=1;
+        }
+        for(int j=0;j<=k;j++){
+            dp[1][j]=j;
+        }
+        for(int i=1;i<=k;i++){
+            for(int j=2;j<=n;j++){
+                int ans=1e9,attempts;
+                for(int l=1;l<=i;l++){
+                    attempts=1+max(dp[j-1][l-1],dp[j][i-l]);
+                    ans=min(ans,attempts);
+                }
+                dp[j][i]=ans;
+            }
+        }
+        return dp[n][k];
+    }
+};
