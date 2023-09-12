@@ -1,0 +1,26 @@
+//link of the problem :https://practice.geeksforgeeks.org/problems/minimum-cost-to-fill-given-weight-in-a-bag1956/1
+
+
+/*****************************memoization************************************/
+class Solution{
+	public:
+	int solvemem(int cost[],int n,int w,vector<vector<int>>& dp){
+	    if(n==-1 and w==0) return 0;
+	    if(n==-1) return 1e9;
+	    if(w==0) return 0;
+	    if(dp[n][w]!=-1)  return dp[n][w];
+	    
+	    if((n+1)>w or cost[n]==-1)return dp[n][w]=solvemem(cost,n-1,w,dp);
+	    int excl=solvemem(cost,n-1,w,dp);
+	    int incl=cost[n]+solvemem(cost,n,w-(n+1),dp);
+	    return dp[n][w]=min(excl,incl);
+	}
+	int minimumCost(int cost[], int N, int W) 
+	{ 
+        // Your code goes here
+        vector<vector<int>>dp(N+1,vector<int>(W+1,-1));
+        int ans=solvemem(cost,N-1,W,dp);
+        if(ans==1e9) return -1;
+        return ans;
+	} 
+};
