@@ -1,0 +1,25 @@
+//link of the problem : https://practice.geeksforgeeks.org/problems/word-break1352/1
+
+
+class Solution
+{
+public:
+    unordered_set<string>st;
+    int solvemem(int idx,string S,vector<int>&dp){
+        if(idx>=S.size()) return 1;
+        if(dp[idx]!=-1) return dp[idx];
+        if(st.find(S)!=st.end()) return 1;
+    
+        for(int i=1;i<=S.length();i++){
+            string temp=S.substr(idx,i);
+            if(st.find(temp)!=st.end() and solvemem(idx+i,S,dp)) return dp[idx] =1;
+        }
+        return dp[idx]= 0;
+    }
+    int wordBreak(string A, vector<string> &B) {
+        //code here
+        vector<int>dp(A.length()+1,-1);
+        for(string &b: B) st.insert(b);
+        return solvemem(0,A,dp);
+    }
+};
