@@ -1,0 +1,51 @@
+//link of the problem: https://practice.geeksforgeeks.org/problems/longest-palindromic-subsequence-1612327878/1
+
+
+/********************************Memoization***********************************/
+class Solution{
+  public:
+    int solvemem(string &a,string &b,int n,int m,vector<vector<int>>&dp){
+        if(n==0 or m==0)  return 0;
+        if(dp[n][m]!=-1) return dp[n][m];
+        if(a[n-1]==b[m-1]) return dp[n][m]=1+solvemem(a,b,n-1,m-1,dp);
+        return dp[n][m]=max(solvemem(a,b,n-1,m,dp),solvemem(a,b,n,m-1,dp));
+    }
+    int longestPalinSubseq(string A) {
+        //code here
+        string B=A;
+        reverse(B.begin(),B.end());
+        int N=A.length();
+        vector<vector<int>>dp(N+1,vector<int>(N+1,-1));
+        return solvemem(A,B,N,N,dp);
+    }
+};
+
+/************************************space complexity********************************/
+class Solution{
+  public:
+    int solvespace(string a,string b){
+        vector<int>curr(b.length()+1,0);
+        vector<int>next(b.length()+1,0);
+        
+        for(int i=a.length()-1;i>=0;i--){
+            for(int j=b.length()-1;j>=0;j--){
+                int res=0;
+                if(a[i]==b[j]){
+                    res=1+next[j+1];
+                }
+                else{
+                    res=max(next[j],curr[j+1]);
+                }
+                curr[j]=res;
+            }
+            next=curr;
+        }
+        return next[0];
+    }
+    int longestPalinSubseq(string A) {
+        string revStrofA=A;
+        reverse(revStrofA.begin(),revStrofA.end());
+        int ans=solvespace(A,revStrofA);
+        return ans;
+    }
+};
