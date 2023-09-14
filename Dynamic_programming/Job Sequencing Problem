@@ -1,0 +1,30 @@
+//link of the problem : https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
+
+
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    static bool cmp(Job a,Job b){
+        return a.profit>b.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        vector<int>dp(n+1,-1);
+        int sum=0,cnt=0;
+        sort(arr,arr+n,cmp);
+        for(int i=0;i<n;i++){
+            int a=arr[i].dead;
+            int pro=arr[i].profit;
+            for(int j=a;j>0;j--){
+                if(dp[j]==-1){
+                    dp[j]=0;
+                    sum+=pro;
+                    cnt++;
+                    break;
+                }
+            }
+        }
+        return {cnt,sum};
+    }  
+};
