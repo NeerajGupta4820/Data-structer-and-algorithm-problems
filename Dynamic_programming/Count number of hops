@@ -1,7 +1,7 @@
 //link of the problem: https://practice.geeksforgeeks.org/problems/count-number-of-hops-1587115620/1
 
 
-/***********************************memoization************************************/
+/***********************************memoization method************************************/
 
 class Solution
 {
@@ -26,7 +26,7 @@ class Solution
     }
 };
 
-/**************************************tabulation*********************************/
+/**************************************tabulation method*********************************/
 long long countWays(int n)
     {
         int mod = 1e9+7;
