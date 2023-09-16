@@ -1,0 +1,45 @@
+//link of the problem:  https://practice.geeksforgeeks.org/problems/find-first-and-last-occurrence-of-x0849/1
+
+
+class Solution
+{
+    public:
+    long long rightmost(vector<long long >v,int n,long long x){
+        int start=0,end=n-1;
+        int mid=start+(end-start)/2;
+        int ans=-1;
+        while(start<=end){
+            if(v[mid]==x){
+                ans=mid;
+                start=mid+1;
+            }
+            else if(v[mid]>x) end=mid-1;
+            else start=mid+1;
+            mid=start+(end-start)/2;
+        }
+        return ans;
+    }
+    long long leftmost(vector<long long >v,int n,long long x){
+        int start=0,end=n-1;
+        int mid=start+(end-start)/2;
+        int ans=-1;
+        while(start<=end){
+            if(v[mid]==x){
+                ans=mid;
+                end=mid-1;
+            }
+            else if(v[mid]>x) end=mid-1;
+            else start=mid+1;
+            mid=start+(end-start)/2;
+        }
+        return ans;
+    }
+    pair<long,long> indexes(vector<long long> v, long long x)
+    {
+        // code here
+        pair<long ,long>p;
+        p.first=leftmost(v,v.size(),x);
+        p.second=rightmost(v,v.size(),x);
+        return p;
+    }
+};
