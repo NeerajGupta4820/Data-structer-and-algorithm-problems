@@ -1,0 +1,85 @@
+//link of the problem : https://leetcode.com/problems/find-in-mountain-array/description/
+
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
+
+class Solution {
+public:
+    int helper2(MountainArray & nums, int target, int pivot){
+        int low=pivot;
+        int high=nums.length()-1;
+        int x=INT_MAX;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int check=nums.get(mid);
+            if(check<=target){
+                if(check==target){
+                    x=mid;
+                }
+                high=mid-1;
+            }
+            else low=mid+1;
+        }
+        if(x==INT_MAX)return -1;
+        return x;
+    }
+
+    int helper1(MountainArray & nums, int target, int pivot){
+        int low=0;
+        int high=pivot;
+        int x=INT_MAX;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int check=nums.get(mid);
+            if(check>=target){
+                if(check==target){
+                    x=mid;
+                }
+                high=mid-1;
+            }
+            else low=mid+1;
+        }
+        if(x==INT_MAX)return -1;
+        return x;
+    }
+
+    int findInMountainArray(int target, MountainArray & nums /*mountainArr*/) {
+        int n=nums.length();
+        if(nums.length()==1){
+            if(nums.get(0)==target)return 0;
+            return -1;
+        }
+        int pivot=-1;
+        if(nums.get(0)>nums.get(1))pivot=0;
+        else if(nums.get(n-1)>nums.get(n-2))pivot=n-1;
+        if(pivot==-1){
+            int low=1;
+            int high=nums.length()-2;
+            while(low<=high){
+                int mid=low+(high-low)/2;
+                int cur=nums.get(mid);
+                int prev=nums.get(mid-1);
+                int next=nums.get(mid+1);
+                if(cur>prev && cur>next){
+                    pivot=mid;
+                    break;
+                }
+                else if(cur>prev && cur<next){
+                    low=mid+1;
+                }
+                else high=mid-1;
+            }
+        }
+        int x=helper1(nums, target, pivot);
+        if(x!=-1)return x;
+        int y=helper2(nums, target, pivot);
+        return y;
+    }
+};
