@@ -27,7 +27,9 @@ class Solution
         }
         while(ind1<len1) arr[mainIndex++]=first[ind1++];
         while(ind2<len2) arr[mainIndex++]=second[ind2++];
-        
+
+        delete []first;
+        delete []second;
     }
     public:
     void mergeSort(int arr[], int l, int r)
