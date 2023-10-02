@@ -1,0 +1,43 @@
+//link of the problem : https://practice.geeksforgeeks.org/problems/merge-sort/1
+
+
+class Solution
+{
+    public:
+    void merge(int arr[], int l, int m, int r)
+    {
+         // Your code here
+        int len1=m-l+1;
+        int len2=r-m;
+        int *first=new int[len1];
+        int *second=new int[len2];
+         
+        int mainIndex=l;
+        for(int i=0;i<len1;i++)
+            first[i]=arr[mainIndex++];
+        
+        int k=m+1;
+        for(int i=0;i<len2;i++) second[i]=arr[k++];
+        
+        int ind1=0,ind2=0;
+        mainIndex=l;
+        while(ind1<len1 and ind2<len2){
+            if(first[ind1]<second[ind2]) arr[mainIndex++]=first[ind1++];
+            else arr[mainIndex++]=second[ind2++];
+        }
+        while(ind1<len1) arr[mainIndex++]=first[ind1++];
+        while(ind2<len2) arr[mainIndex++]=second[ind2++];
+        
+    }
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        //code here
+        if(l>=r) return ;
+        int mid=l+(r-l)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,r);
+        merge(arr,l,mid,r);
+        
+    }
+};
