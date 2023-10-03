@@ -1,0 +1,21 @@
+//link of the problem :  https://practice.geeksforgeeks.org/problems/middle-of-three2926/1
+
+
+class Solution{
+  public:
+    int middle(int A, int B, int C){
+        //code here//Position this line where user code will be pasted.
+        if(A>B and A>C){
+            if(B>C) return B;
+            else return C;
+        }
+        else if(B>A and B>C){
+            if(A>C) return A;
+            else return C;
+        }
+        else if(C>A and C>B){
+            if(A>B) return A;
+            else return B;
+        }
+    }
+};
