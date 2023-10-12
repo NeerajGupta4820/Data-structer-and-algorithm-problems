@@ -1,0 +1,29 @@
+//link of the problem: https://practice.geeksforgeeks.org/problems/majority-element-1587115620/1
+
+
+
+class Solution{
+  public:
+     // Function to find majority element in the array
+    // a: input array
+    // size: size of input array
+    int majorityElement(int a[], int size)
+    {
+        
+        // your code here
+           map<int, int> Map;
+      
+      for(int i=0; i<n; ++i){
+          Map[arr[i]]++;
+      }
+      
+      for(auto itr : Map){
+          if(itr.second > n/2){
+              return itr.first;
+          }
+      }
+      
+      return -1;
+        
+    }
+};
