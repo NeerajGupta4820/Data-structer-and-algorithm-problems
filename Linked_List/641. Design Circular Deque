@@ -1,0 +1,100 @@
+class node{
+    public:
+    int data;
+    node* next;
+    node* prev;
+    node(int x){
+        this->data=x;
+        next=prev=NULL;
+    }
+};
+class MyCircularDeque {
+private: 
+    node*rear,*front;
+    int count,size;
+public:
+    MyCircularDeque(int k) {
+        count=0;
+        size=k;
+        front=rear=NULL;
+    }
+    
+    bool insertFront(int value) {
+        if(count==size) return false;
+        node* temp=new node(value);
+        if(front==NULL) front=rear=temp;
+        else{
+            temp->next=front;
+            front->prev=temp;
+            front=temp;
+        }
+        count++;
+        return true;
+    }
+    
+    bool insertLast(int value) {
+        if(count==size) return false;
+        node* temp=new node(value);
+        if(rear==NULL) front=rear=temp;
+        else{
+            rear->next=temp;
+            temp->prev=rear;
+            rear=temp;
+        }
+        count++;
+        return true;
+    }
+    
+    bool deleteFront() {
+        if(front==NULL) return false;
+        if(front ==rear) front =rear=NULL;
+        else{
+            front=front->next;
+        }
+        count--;
+        return true;
+    }
+    
+    bool deleteLast() {
+        if(rear==NULL) return false;
+        if(rear==front) front =rear=NULL;
+        else{
+            rear=rear->prev;
+        }
+        count--;
+        return true;
+    }
+    
+    int getFront() {
+        if(front==NULL) return -1;
+        return front->data;
+    }
+    
+    int getRear() {
+        if(rear==NULL) return -1;
+        return rear->data;
+    }
+    
+    bool isEmpty() {
+        if(front==NULL) return true;
+            return false;
+    }
+    
+    bool isFull() {
+        if(count==size) return true;
+        return false;
+    }
+};
+
+/**
+ * Your MyCircularDeque object will be instantiated and called as such:
+ * MyCircularDeque* obj = new MyCircularDeque(k);
+ * bool param_1 = obj->insertFront(value);
+ * bool param_2 = obj->insertLast(value);
+ * bool param_3 = obj->deleteFront();
+ * bool param_4 = obj->deleteLast();
+ * int param_5 = obj->getFront();
+ * int param_6 = obj->getRear();
+ * bool param_7 = obj->isEmpty();
+ * bool param_8 = obj->isFull();
+ */
