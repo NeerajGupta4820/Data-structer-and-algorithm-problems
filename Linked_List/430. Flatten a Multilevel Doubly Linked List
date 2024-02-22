@@ -1,0 +1,38 @@
+class Solution {
+private:
+    Node * append(Node * l1, Node * l2) {
+        Node * head = l1;
+        Node * node = l1;
+        while (node && node->next) {
+            node = node->next;
+        }
+        node->next = l2;
+        if (l2) {
+            l2->prev = node;
+        }
+        return head;
+    }
+
+public:
+    Node* flatten(Node* head) {
+        if (!head) {
+            return head;
+        }
+
+        Node * n = head;
+        while (n->next && !n->child) {
+            n = n->next;
+        }
+
+        if (n->child) {
+            Node * l2 = n->next;
+            Node * l1 = flatten(n->child);
+            n->child = NULL;
+            Node * l = append(l1, l2);
+            n->next = l;
+            l->prev = n;
+            return head;
+        }
+        return head;
+    }
+};
