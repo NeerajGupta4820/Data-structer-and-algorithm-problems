@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+
+        ListNode* leftHead = new ListNode(-1000);
+        ListNode* leftTail = leftHead;
+        ListNode* rightHead = new ListNode(-2000);
+        ListNode* rightTail = rightHead;
+        
+        while(head){
+            if(head->val<x){
+                leftTail->next = head;
+                leftTail = head;
+            }
+            else{
+                rightTail->next = head;
+                rightTail = head;
+            }
+            head = head->next;
+        }
+
+        rightTail->next = NULL;
+        leftTail->next = rightHead->next;
+
+        return leftHead->next;
+    }
+};
