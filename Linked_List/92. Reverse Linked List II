@@ -1,0 +1,71 @@
+class Solution {
+public:
+    
+    ListNode* reverseLL(ListNode* head){
+        
+        ListNode* prev = NULL;
+        
+        ListNode* curr = head;
+        
+        while(curr!=NULL){
+            ListNode* currkanext = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = currkanext;
+        }
+        
+        return prev;
+    }
+    
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        
+        if(!head || head->next==NULL){
+            return head;
+        }
+        
+        left--;
+        right--;
+        
+        ListNode* dummy1 = new ListNode(-1);
+        ListNode* dummy2 = new ListNode(-1);
+        ListNode* dummy3 = new ListNode(-1); 
+        
+        ListNode* head1 = dummy1;
+        
+        ListNode* head2 = dummy2;
+        
+        ListNode* head3 = dummy3;
+        
+        ListNode* temp = head;
+        for(int i=0;i<left;i++){
+            dummy1->next = new ListNode(temp->val);
+            temp = temp->next;
+            dummy1 = dummy1->next;
+        }
+        
+        for(int i=left;i<=right;i++){
+            dummy2->next = new ListNode(temp->val);
+            temp = temp->next;
+            dummy2 = dummy2->next;
+        }
+        
+        while(temp!=NULL){
+            dummy3->next = new ListNode(temp->val);
+            temp = temp->next;
+            dummy3 = dummy3->next;
+        }
+        
+        ListNode* dummy = head2->next;
+        
+        ListNode* node = reverseLL(head2->next);
+        
+        dummy1->next = node;
+        
+        cout<<dummy2->val<<endl;
+        
+        dummy->next = head3->next;
+        
+        return head1->next;
+        
+    }
+};
