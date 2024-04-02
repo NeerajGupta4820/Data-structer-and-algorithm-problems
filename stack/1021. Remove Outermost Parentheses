@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        string res;
+        int opened=0;
+        for(auto c:s){
+            if(c=='(' and opened++>0){
+                res+=c;
+            }
+            if(c==')' and opened-->1){
+                res+=c;
+            }
+        }
+        return res;
+    }
+};
