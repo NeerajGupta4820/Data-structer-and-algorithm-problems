@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        if(root == NULL)
+            return {};
+        vector<int> result;
+        stack<Node*> s;
+        Node *prev = NULL;
+        s.push(root);
+        while(!s.empty()) {
+            while(root) {
+                int n = root->children.size();
+                for(int i=n-1; i>=0; i--)
+                    s.push(root->children[i]);
+                root = (n == 0) ? NULL : root->children[0];
+            }
+            result.push_back(s.top()->val);
+            prev = s.top();
+            s.pop();
+            if(s.empty())
+                break;
+            int n = s.top()->children.size();
+            if(n == 0 || (n > 0 && s.top()->children[n-1] == prev))
+                root = NULL;
+            else
+                root = s.top();
+        }
+        return result;
+    }
+};
