@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        stack<string>st;
+        string h="";
+        for(int i=0;i<s.length();i++){
+            if(s[i]!=' ') h+=s[i];
+            if(s[i]==' ' and h!=""){
+                st.push(h);
+                h="";
+            }
+        }
+        if(h!="") st.push(h);
+        string ans="";
+        while(st.size()>0){
+            ans=ans+st.top();
+            st.pop();
+            if(!st.empty()){
+                ans=ans+' ';
+            }
+        }
+        return ans;
+    }
+};
