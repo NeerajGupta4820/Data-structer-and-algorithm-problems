@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        int n=s.length();
+        int size=n-1;
+        while(n>0){
+            n--;
+            if(s==goal) return true;
+            else{
+                string a=s.substr(1,size);
+                char b=s[0];
+                s=a+b;
+            }
+        }
+        return false;
+    }
+};
