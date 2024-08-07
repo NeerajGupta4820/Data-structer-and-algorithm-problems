@@ -1,0 +1,31 @@
+class twoStacks {
+  public:
+    int st[200];
+    int t1,t2;
+    twoStacks() {
+        t1=99;
+        t2=100;
+    }
+
+    // Function to push an integer into the stack1.
+    void push1(int x) {
+        st[t1--]=x;
+    }
+
+    // Function to push an integer into the stack2.
+    void push2(int x) {
+        st[t2++]=x;
+    }
+
+    // Function to remove an element from top of the stack1.
+    int pop1() {
+        if(t1<99) return st[++t1];
+        return -1;
+    }
+
+    // Function to remove an element from top of the stack2.
+    int pop2() {
+        if(t2>100) return st[--t2];
+        return -1;
+    }
+};
