@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<int>prevsmaller(vector<int>& heights,int n){
+        vector<int>leftsmaller(n);
+        stack<int>st;
+        for(int i=0;i<n;i++){
+            while(!st.empty() and heights[st.top()]>=heights[i]){
+                st.pop();
+            }
+            leftsmaller[i]=st.empty()?-1:st.top();
+            st.push(i);
+        }
+        return leftsmaller;
+    }
+    vector<int>nextsmaller(vector<int>& heights,int n){
+        vector<int>rightsmaller(n);
+        stack<int>st;
+        for(int i=n-1;i>=0;i--){
+            while(!st.empty() and heights[st.top()]>=heights[i]){
+                st.pop();
+            }
+            rightsmaller[i]=st.empty()?n:st.top();
+            st.push(i);
+        }
+        return rightsmaller;
+    }
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
+        vector<int>left=prevsmaller(heights,n);
+        vector<int>right=nextsmaller(heights,n);
+        
+        int maxArea=0;
+        for(int i=0;i<n;i++){
+            int currArea=(right[i]-left[i]-1)*heights[i];
+            maxArea=max(maxArea,currArea);
+        }
+        return maxArea;
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int r=matrix.size();
+        if(r==0) return 0;
+        int c=matrix[0].size();
+        int maxi=0;
+        vector<int>v(c,0);
+        
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                  if(matrix[i][j] == '1') v[j]++;
+                if(matrix[i][j] == '0') v[j] = 0;
+            }
+            maxi=max(maxi,largestRectangleArea(v));
+        }
+        return maxi;
+    }
+};
