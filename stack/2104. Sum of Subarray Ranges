@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long subArrayRanges(vector<int>& nums) {
+        long long ans=0;
+        for(int i=0;i<nums.size();i++){
+            long long mx=nums[i];
+            long long mi=nums[i];
+            for(int j=i;j<nums.size();j++){
+                if(nums[j]>mx){
+                    mx=nums[j];
+                }
+                if(nums[j]<mi){
+                    mi=nums[j];
+                }
+                ans=ans+(mx-mi);
+            }
+        }    
+        return ans;
+    }
+};
