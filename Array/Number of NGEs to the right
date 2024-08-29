@@ -1,0 +1,19 @@
+class Solution{
+public:
+
+    vector<int> count_NGE(int n, vector<int> &arr, int queries, vector<int> &indices){
+        //write your code here
+        vector<int>ans;
+        for(int index=0;index<queries;index++){
+            int a=indices[index]+1;
+            int count=0;
+            while(a<n){
+                if(arr[a]>arr[indices[index]]) count++;
+                a++;
+            }
+            ans.push_back(count);
+        }
+       return ans;
+    }
+
+};
