@@ -1,0 +1,17 @@
+class Solution{
+public:
+    vector<int> findTwoElement(vector<int> arr, int n) {
+        // code here
+        unordered_map<int,int>mp;
+        for(int  i=0;i<n;i++){
+            mp[arr[i]]++;
+        }
+        int a=0;
+        int b=0;
+        for(int i=0;i<=n;i++){
+            if(mp[i]==0) a=i;
+            else if(mp[i]>1) b=i;
+        }
+        return {b,a};
+    }
+};
