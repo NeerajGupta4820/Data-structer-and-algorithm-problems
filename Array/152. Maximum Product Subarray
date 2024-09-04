@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int ans=INT_MIN;
+        int pstart=1;
+        int pend=1;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(pstart==0) pstart=1;
+            if(pend==0) pend=1;
+            pstart*=nums[i];
+            pend*=nums[n-i-1];
+            ans=max(ans,max(pstart,pend));
+        }
+        return ans;
+    }
+};
