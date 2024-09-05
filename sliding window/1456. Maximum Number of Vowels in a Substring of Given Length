@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isVowel(char c){
+        tolower(c);
+        if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u') return true;
+        return false;
+    }
+    int maxVowels(string s, int k) {
+        int i=0,j=0,count=0;
+        int maxVowels=0;
+        while(j<s.length()){
+            char c=s[j];
+            if(isVowel(c)) count++;
+            if(j-i+1==k){
+                maxVowels=max(maxVowels,count);
+                if(isVowel(s[i])) count--;
+                i++;
+            }
+            j++;
+        }
+        return maxVowels;
+    }
+};
