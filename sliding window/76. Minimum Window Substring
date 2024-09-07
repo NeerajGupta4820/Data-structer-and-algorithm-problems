@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int i=0,j=0,minlen=INT_MAX,minind=0,cnt=t.length();
+        unordered_map<char,int>mp;
+        for(auto ch:t) mp[ch]++;
+        while(j<s.length()){
+            if(mp[s[j]]>0){
+                cnt--;
+            }
+            mp[s[j]]--;
+            
+            while(cnt==0){
+                if(j-i+1<minlen){
+                    minind=i;
+                    minlen=j-i+1;
+                }
+                mp[s[i]]++;
+                if(mp[s[i]]>0) cnt++;
+                i++;
+            }
+            j++;
+        }
+        if(minlen!=INT_MAX){
+            return s.substr(minind,minlen);
+        }
+        return "";
+    }
+};
