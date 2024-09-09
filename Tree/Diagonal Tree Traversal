@@ -1,0 +1,28 @@
+void fun(Node* root,int i,map<int,vector<int>> &m){
+    if(root==NULL)
+        return;
+    m[i].push_back(root->data);
+    fun(root->left,i+1,m); //according to question
+    
+    fun(root->right,i,m); //NO +1
+
+    return;
+}
+
+
+vector<int> diagonal(Node *root)
+{
+   // your code here
+    map<int,vector<int>> m;
+    fun(root,0,m);
+    
+    vector<int> ans;
+    for(auto z:m){
+        for(auto d:z.second){
+            ans.push_back(d);
+        }
+        
+    }
+    
+    return ans;
+}
