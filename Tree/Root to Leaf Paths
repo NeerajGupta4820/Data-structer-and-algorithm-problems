@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    void findpaths(Node* root,vector<int>&path, vector<vector<int>>&paths){
+        if(!root) return ;
+        path.push_back(root->data);
+        if(!root->left and !root->right) paths.push_back(path);
+        else{
+            if(root->left) findpaths(root->left,path,paths);
+            if(root->right) findpaths(root->right,path,paths);
+        }
+        path.pop_back();
+    }
+    vector<vector<int>> Paths(Node* root) {
+        vector<vector<int>>paths;
+        vector<int>path;
+        findpaths(root,path,paths);
+        return paths;
+    }
+};
