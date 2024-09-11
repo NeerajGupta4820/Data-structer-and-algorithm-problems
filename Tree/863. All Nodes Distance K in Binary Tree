@@ -1,0 +1,52 @@
+
+class Solution {
+public:
+    unordered_map<TreeNode*,TreeNode*>parent;
+    void inorder(TreeNode*root){
+        if(!root) return ;
+        if(root->left) 
+            parent[root->left]=root;
+        inorder(root->left);
+        if(root->right) 
+            parent[root->right]=root;
+        inorder(root->right);
+    }
+    void BFS(TreeNode* target,int k,vector<int>&ans){
+        queue<TreeNode*>q;
+        q.push(target);
+        unordered_set<int>visited;
+        visited.insert(target->val);
+        while(!q.empty()){
+            int size=q.size();
+            if(k==0) break;
+            while(size--){
+                TreeNode* temp=q.front();
+                q.pop();
+                if(temp->left and !visited.count(temp->left->val)){
+                    q.push(temp->left);
+                    visited.insert(temp->left->val);
+                }
+                if(temp->right and !visited.count(temp->right->val)){
+                    q.push(temp->right);
+                    visited.insert(temp->right->val);
+                }
+                if(parent.count(temp) and !visited.count(parent[temp]->val)){
+                    q.push(parent[temp]);
+                    visited.insert(parent[temp]->val);
+                }
+            }
+            k--;
+        }
+        while(!q.empty()){
+            TreeNode* temp=q.front();
+            q.pop();
+            ans.push_back(temp->val);
+        }
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        vector<int>res;
+        inorder(root);
+        BFS(target,k,res);
+        return res;
+    }
+};
