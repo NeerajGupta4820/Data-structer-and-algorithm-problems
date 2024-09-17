@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int amountOfTime(TreeNode* root, int start) {
+        unordered_map<TreeNode*,TreeNode*>parent;
+        unordered_set<TreeNode*>visited;
+        queue<TreeNode*>q;
+        q.push(root);
+        parent[root]=nullptr;
+        TreeNode* startNode=nullptr;
+        while(!q.empty()){
+            auto temp=q.front();
+            q.pop();
+            if(temp->val==start){
+                startNode=temp;
+            }
+            if(temp->left){
+                parent[temp->left]=temp;
+                q.push(temp->left);
+            }
+            if(temp->right){
+                parent[temp->right]=temp;
+                q.push(temp->right);
+            }
+        }
+        if(!startNode) return 0;
+        queue<TreeNode*>q2;
+        q2.push(startNode);
+        visited.insert(startNode);
+        int count=0;
+        while(!q2.empty()){
+            int size=q2.size();
+            bool incrementCount=false;
+            while(size--){
+                auto temp=q2.front();
+                q2.pop();
+                if(temp->left and visited.find(temp->left)==visited.end()){
+                    visited.insert(temp->left);
+                    q2.push(temp->left);
+                    incrementCount=true;
+                }
+                if(temp->right and visited.find(temp->right)==visited.end()){
+                    visited.insert(temp->right);
+                    q2.push(temp->right);
+                    incrementCount=true;
+                }
+                if(parent[temp] and visited.find(parent[temp])==visited.end()){
+                    visited.insert(parent[temp]);
+                    q2.push(parent[temp]);
+                    incrementCount=true;
+                }
+            }
+            if(incrementCount) count++;
+        }
+        return count;
+    }
+};
