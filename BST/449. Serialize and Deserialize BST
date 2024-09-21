@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+    string solve(TreeNode* root){
+        if(!root) return "x,";
+        return to_string(root->val)+","+solve(root->left)+solve(root->right);
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        return solve(root);
+    }
+    TreeNode* inorder(istringstream &data){
+        string val;
+        getline(data,val,',');
+        if(val=="x") return nullptr;
+        TreeNode* root=new TreeNode(stoi(val));
+        root->left=inorder(data);
+        root->right=inorder(data);
+        return root;
+    }
+    TreeNode* deserialize(string data) {
+        istringstream ss(data); // Use stringstream for easy extraction
+        return inorder(ss);
+    }
+};
