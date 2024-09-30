@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool topologicalsort(int i, vector<int>& visited, vector<vector<int>>& adjList) {
+        visited[i] = 1;  
+        
+        for (int nbr : adjList[i]) {
+            if (visited[nbr] == 0) {  
+                if (topologicalsort(nbr, visited, adjList)) 
+                    return true;  
+            } 
+            else if (visited[nbr] == 1) {
+                return true;  
+            }
+        }
+        
+        visited[i] = 2;  
+        return false;
+    }
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> adjList(numCourses);  
+        vector<int> visited(numCourses, 0);  
+        for (auto& p : prerequisites) {
+            adjList[p[1]].push_back(p[0]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] == 0) {
+                if (topologicalsort(i, visited, adjList)) 
+                    return false;
+            }
+        }
+        
+        return true;  
+    }
+};
