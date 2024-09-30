@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    // Function to return a list of integers denoting the node
+    // values of both the BST in a sorted order.
+    void preorder(Node* root,vector<int>& ans){
+        if(!root) return ;
+        
+        if(root->left) preorder(root->left,ans);
+        ans.push_back(root->data);
+        if(root->right) preorder(root->right,ans);
+    }
+    vector<int> merge(Node *root1, Node *root2) {
+        // Your code here
+        vector<int>ans;
+        preorder(root1,ans);
+        preorder(root2,ans);
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
