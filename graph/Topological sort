@@ -1,3 +1,4 @@
+/***********************************BFS-traversal******************************/
 class Solution {
   public:
     // Function to return list containing vertices in Topological order.
@@ -28,5 +29,36 @@ class Solution {
             }
         }
         return temp;
+    }
+};
+
+
+/*************************************DFS-traversal*******************************************/
+class Solution {
+  public:
+    // Function to return list containing vertices in Topological order.
+    void dfs(int start,vector<int>& visited,stack<int>&st,vector<vector<int>>&adj){
+        visited[start]=1;
+        for(int nbr:adj[start]){
+            if(!visited[nbr]) 
+                dfs(nbr,visited,st,adj);
+        }
+        st.push(start);
+    }
+    vector<int> topologicalSort(vector<vector<int>>& adj) {
+        // Your code here
+        int n=adj.size();
+        stack<int>st;
+        vector<int>visited(n);
+        for(int i=0;i<n;i++){
+            if(!visited[i])
+                dfs(i,visited,st,adj);
+        }
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            ans.push_back(st.top());
+            st.pop();
+        }
+        return ans;
     }
 };
